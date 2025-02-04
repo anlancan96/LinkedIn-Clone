@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+      "disableReferencedProjectLoad": true,
+      "disableSolutionSearching": true
+    },
+    "files": [],
+    "references": [
+      { "path": "./frontend" },
+      { "path": "./backend" }
+    ]
+}
