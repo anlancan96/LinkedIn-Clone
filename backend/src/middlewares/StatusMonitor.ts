@@ -1,6 +1,6 @@
 import { Application } from 'express';
 import expressStatusMonitor from 'express-status-monitor';
-import Locals from '../providers/Locals';
+import Locals from '@/providers/Locals';
 
 class StatusMonitor {
 	public mount (_express: Application): Application {

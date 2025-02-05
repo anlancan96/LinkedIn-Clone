@@ -16,10 +16,8 @@ export interface IUser extends Document<Types.ObjectId> {
   photo?: string;
   role: 'user' | 'guide' | 'lead-guide' | 'admin';
   password: string;
-  passwordConfirm: string | undefined;
   passwordChangedAt?: Date;
-  passwordResetToken?: string;
-  passwordResetExpires?: Date;
+  bio?: string;
   active: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -28,6 +26,7 @@ export interface IUser extends Document<Types.ObjectId> {
 // Interface for User model
 export interface IUserModel extends Model<IUser, {}, IUserMethods> {
   findByEmail(email: string): Promise<IUser | null>;
+  findRoleByUserId(id: string): Promise<string | null>;
 }
 
 // Combine the Document and Methods interfaces
@@ -75,6 +74,10 @@ const userSchema = new Schema<IUser, IUserModel, IUserMethods>(
         message: 'Password must contain at least one uppercase letter, one lowercase letter, and one number'
       }
     },
+    bio: {
+      type: String,
+      default: "", // Bio is optional, default to an empty string
+    },
     passwordChangedAt: Date,
     createdAt: {
       type: Date,
@@ -119,6 +122,10 @@ userSchema.methods.correctPassword = async function(
 ): Promise<boolean> {
   return await bcrypt.compare(candidatePassword, this.password);
 };
+
+userSchema.static('findRoleByUserId', function findRoleByUserId(userId: string) {
+  return this.findById(userId).select('role').then(user => user?.role);
+});
 
 // Static methods
 userSchema.static('findByEmail', function findByEmail(email: string) {

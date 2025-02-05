@@ -1,6 +1,6 @@
 import { Application, Request } from 'express';
 import { rateLimit } from "express-rate-limit";
-import Locals from '../providers/Locals';
+import Locals from '@/providers/Locals';
 
 class RateLimit {
     public static mount(_express: Application): Application {

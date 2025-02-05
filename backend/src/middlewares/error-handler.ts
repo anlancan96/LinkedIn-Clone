@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { ValidationError as ExpressValidatorError, Result, ValidationError } from 'express-validator';
 import { Error as MongooseError } from 'mongoose';
-import { logger } from '../index';
-import Locals from '../providers/Locals';
+import { logger } from '@/index';
+import Locals from '@/providers/Locals';
 
 // Custom error types
 interface IAPIError extends Error {

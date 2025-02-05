@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import { body, validationResult } from "express-validator";
 import { APIError, catchAsync } from "../error-handler";
-import User from "../../models/user.model";
+import User from "@/models/user.model";
 import { StatusCodes } from "http-status-codes";
 import jwt from 'jsonwebtoken';
 import { TokenPayload } from "../../../types/TokenPayLoad";
-import { readPublicKey } from "../../utils/helper";
-import { logger } from "../..";
+import { readPublicKey } from "@/utils/helper";
+import { logger } from "@/index";
 
 export default class AuthValidator {
   public static login = catchAsync(
@@ -108,4 +108,37 @@ export default class AuthValidator {
       next(error);
     }
   };
+
+  public static authorizeRoles = (...roles: string[]) => {
+    return catchAsync(
+      async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+        try {
+          if (!req.userId) {
+            throw new APIError(
+              StatusCodes.UNAUTHORIZED,
+              "You must be logged in to access this route"
+            );
+          }
+  
+          // Get user from database to check their role
+          const role = await User.findRoleByUserId(req.userId);
+          if (!role) {
+            throw new APIError(StatusCodes.NOT_FOUND, "User not found");
+          }
+  
+          // Check if user's role is included in the allowed roles
+          if (!roles.includes(role)) {
+            throw new APIError(
+              StatusCodes.FORBIDDEN,
+              "You do not have permission to access this route"
+            );
+          }
+  
+          next();
+        } catch (error) {
+          next(error);
+        }
+      }
+    )
+  }
 }

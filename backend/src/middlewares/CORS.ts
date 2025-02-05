@@ -1,6 +1,6 @@
 const cors = require('cors');
 import { Application } from 'express';
-import Locals from '../providers/Locals';
+import Locals from '@/providers/Locals';
 
 class CORS {
 	public static mount(_express: Application): Application {

@@ -1,12 +1,12 @@
 import express from 'express';
 import Locals from './Locals';
-import CORS from '../middlewares/CORS';
-import Http from '../middlewares/Http';
-import RateLimit from '../middlewares/RateLimit';
-import requestLogger from '../middlewares/requestLogger';
+import CORS from '@/middlewares/CORS';
+import Http from '@/middlewares/Http';
+import RateLimit from '@/middlewares/RateLimit';
+import requestLogger from '@/middlewares/requestLogger';
 //routes
-import { userRouter } from '../routes/userRouter';
-import { errorHandler } from '../middlewares/error-handler';
+import { userRouter } from '@/routes/userRouter';
+import { errorHandler } from '@/middlewares/error-handler';
 class Express {
     public app: express.Application;
     constructor(){
@@ -32,7 +32,7 @@ class Express {
 
 		// Mount basic express apis middleware
 		this.app = Http.mount(this.app);
-        this.app = RateLimit.mount(this.app);
+        //this.app = RateLimit.mount(this.app);
 		this.app.use(requestLogger);
 	}
 

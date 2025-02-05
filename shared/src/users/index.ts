@@ -1,3 +1,7 @@
+export enum Role {
+  user = "user",
+  admin = "admin"
+}
 export interface IUserResponse {
   id: string;
   name: string;
@@ -12,7 +16,7 @@ export interface ICreateUserInput {
   name: string;
   email: string;
   password: string;
-  role?: "user" | "admin";
+  role?: Role.user | Role.admin;
   photo?: string;
 }
 
@@ -20,7 +24,7 @@ export interface IUpdateUserInput {
   name?: string;
   email?: string;
   photo?: string;
-  role?: "user" | "admin";
+  role?: Role.user | Role.admin;
 }
 
 export interface IUpdatePasswordInput {

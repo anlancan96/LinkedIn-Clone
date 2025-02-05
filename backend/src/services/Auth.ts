@@ -1,6 +1,6 @@
-import { ICreateUserInput, IUserResponse } from '../../../../shared/src/users';
-import { APIError } from '../../middlewares/error-handler';
-import User from '../../models/user.model';
+import { ICreateUserInput, IUserResponse } from '../../../shared/src/users';
+import { APIError } from '@/middlewares/error-handler';
+import User from '@/models/user.model';
 
 export class AuthService {
   public static async signup(userData: ICreateUserInput): Promise<IUserResponse> {

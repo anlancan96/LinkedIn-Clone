@@ -24,8 +24,8 @@ class Locals {
 	public static config(): ConfigType {
 		dotenv.config({ path: path.join(__dirname, '../../.env') });
 		const isProduction = process.env.ENV == 'prod';
-		const url = process.env.APP_URL || `http://localhost:${process.env.PORT}`;
 		const port = process.env.PORT ? Number(process.env.PORT) : 4040;
+		const url = process.env.APP_URL || `http://localhost:${port}`;
 		const appSecret = process.env.APP_SECRET || 'This is your responsibility!';
 		const mongooseUrl = process.env.MONGOOSE_URL || 'mongodb://127.0.0.1:27017/LinkedInClone';
 		const maxUploadLimit = process.env.APP_MAX_UPLOAD_LIMIT || '50mb';

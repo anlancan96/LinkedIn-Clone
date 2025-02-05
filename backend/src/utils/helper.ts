@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require('path');
 import type { Request, NextFunction, Response } from "express";
 import { ExpressValidator, CustomValidationChain, CustomSchema } from 'express-validator';
-import { ServiceResponse } from "../models/serviceResponse";
+import { ServiceResponse } from "@/models/serviceResponse";
 
 export const handleServiceResponse = (serviceResponse: ServiceResponse<any>, response: Response) => {
     return response.status(serviceResponse.statusCode).send(serviceResponse);

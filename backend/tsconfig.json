@@ -4,11 +4,18 @@
     "module": "commonjs",
     "outDir": "./dist/backend",
     "strict": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": ["./types", "./node_modules/@types"]
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "moduleResolution": "Node",
+    "resolveJsonModule": true, 
+    "allowJs": true,                  
+    "esModuleInterop": true,
   },
-  "include": ["../shared/src", "types/*.d.ts", "src/**/**/*.ts"],
+  "include": ["../shared/src", "types/*.d.ts", "src/**/*.ts"],
   "exclude": ["node_modules"]
 }

@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { MongoError } from 'mongodb';
 
 import Locals from './Locals';
-import { logger } from '../index';
+import { logger } from '@/index';
 
 export class Database {
 	// Initialize your database pool

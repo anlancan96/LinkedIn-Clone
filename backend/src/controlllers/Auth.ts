@@ -1,12 +1,13 @@
 import jwt, { type SignOptions } from 'jsonwebtoken';
 import { StatusCodes } from "http-status-codes";
 import { Request, RequestHandler, Response, CookieOptions, NextFunction } from "express";
-import { readPrivateKey, handleServiceResponse, readPublicKey } from '../../utils/helper';
-import { ServiceResponse } from '../../models/serviceResponse'
-import Locals from "../../providers/Locals";
-import { logger } from '../..';
-import { APIError, catchAsync } from '../../middlewares/error-handler';
-import { AuthService } from '../../services/Auth';
+import { readPrivateKey, handleServiceResponse, readPublicKey } from '@/utils/helper';
+import { ServiceResponse } from '@/models/serviceResponse'
+import Locals from "@/providers/Locals";
+import { logger } from '@/index';
+import { APIError, catchAsync } from '@/middlewares/error-handler';
+import { AuthService } from '@/services/Auth';
+import { TokenPayload } from 'types/TokenPayLoad';
 
 class AuthController {
     private generateAccessToken(req: Request, res: Response): any {
@@ -22,12 +23,12 @@ class AuthController {
             issuer: Locals.config().company,
             audience: Locals.config().url,
             expiresIn: (30 * 60), // 30mins
-            subject: '',
+            subject: req.userId,
             jwtid: `${(Math.floor(Date.now()))}`
         }
         const accessToken = jwt.sign({
-            userid: req.userId,
-        }, privateKey, jwtAccessOptions);
+            userId: req.userId,
+        } as TokenPayload, privateKey, jwtAccessOptions);
         // Creating refresh token not that expiry of refresh 
         //token is greater than the access token
 
@@ -36,12 +37,12 @@ class AuthController {
             issuer: Locals.config().company,
             audience: Locals.config().url,
             expiresIn: '24W', // 6 months
-            subject: '',
+            subject: req.userId,
             jwtid: `${(Math.floor(Date.now()))}`
         }
         const refreshToken = jwt.sign({
-            userid: req.userId,
-        }, privateKey, jwtRefreshOptions);
+            userId: req.userId,
+        } as TokenPayload, privateKey, jwtRefreshOptions);
 
         // Assigning refresh token in http-only cookie 
         const options: CookieOptions = {
@@ -97,10 +98,10 @@ class AuthController {
                 issuer: Locals.config().company,
                 audience: Locals.config().url,
                 expiresIn: 30 * 60, // 30mins
-                subject: "",
+                subject: req.userId,
                 jwtid: `${Math.floor(Date.now())}`,
             };
-            const accessToken = jwt.sign({ userid: req.userId,},
+            const accessToken = jwt.sign({ userId: req.userId,} as TokenPayload,
                 privateKey,
                 jwtAccessOptions
             );

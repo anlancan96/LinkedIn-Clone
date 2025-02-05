@@ -2,7 +2,7 @@ import express, { Application } from 'express';
 import cookieParser from 'cookie-parser';
 import helmet from "helmet";
 const compress = require('compression');
-import Locals from '../providers/Locals';
+import Locals from '@/providers/Locals';
 
 class Http {
 	public static mount(_express: Application): Application {
