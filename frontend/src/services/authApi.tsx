@@ -6,8 +6,11 @@ export const loginApi = async (credentials: FormData) => {
     return response.data;
 };
 
-export const refreshTokenApi = async (token: string) => {
-    const response = await axios.post('refresh-token', token);
+export const refreshTokenApi = async () => {
+    setTimeout(function() {
+        //Do some stuff here
+     }, 3000);
+    const response = await axios.post('refresh-token', { Credential: true });
     return response.data;
 }
 

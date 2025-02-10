@@ -6,7 +6,7 @@ export interface ISkill extends Document<Types.ObjectId> {
 }
 
 interface ISkillModel extends Model<ISkill, {}> {
-    preCalculatePopularity(skill: ISkill, inc: number): Promise<any>;
+    preCalculatePopularity(skill: string, inc: number): Promise<any>;
 }
 
 const skillSchema = new Schema<ISkill, ISkillModel>({
@@ -21,7 +21,7 @@ const skillSchema = new Schema<ISkill, ISkillModel>({
     }
 });
 
-skillSchema.static('preCalculatePopularity', function preCalculatePopularity(skill: ISkill, inc: number) {
+skillSchema.static('preCalculatePopularity', function preCalculatePopularity(skill: string, inc: number) {
     return this.findByIdAndUpdate(skill, { $inc: { experienceCount: inc }})
 })
 

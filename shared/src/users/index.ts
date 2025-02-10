@@ -6,6 +6,7 @@ export interface IUserResponse {
   id: string;
   name: string;
   email: string;
+  accessToken: string;
   role: string;
   photo?: string;
   createdAt: Date;
@@ -20,11 +21,21 @@ export interface ICreateUserInput {
   photo?: string;
 }
 
+export interface Experience {
+  title: string;
+  company: string;
+  startDate: Date;
+  endDate?: Date; 
+  description?: string;
+  skills: string[]; 
+}
+
 export interface IUpdateUserInput {
   name?: string;
   email?: string;
   photo?: string;
-  role?: Role.user | Role.admin;
+  bio?: string;
+  experiences: Experience[];
 }
 
 export interface IUpdatePasswordInput {

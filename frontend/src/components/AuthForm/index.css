@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .form__input--padding {
+    padding: 28px 12px 6px;
+  }
+  .form__label--floating {
+    padding: 14px 0 0 12px;
+    color: var(--color-light-text);
+    font-size: 18px;
+    font-weight: 400;
+    transition: .2s all;
+    background: transparent;
+    -webkit-transition: .2s all;
+  }
+}

@@ -1,12 +1,18 @@
 import './App.css'
-import { useAuth } from './hooks/authHooks'
+import { Suspense } from 'react';
+import { useAuth } from './hooks/AuthHooks'
+import { lazyLoad } from './utils';
+const LoginPage = lazyLoad('/src/pages/LoginPage', null);
 
 function App() {
-  const isAuthenticated = useAuth();
+  const { isAuthenticated, isPending } = useAuth();
+  if(isPending) {
+    return <h1>Loading......</h1>
+  }
   return (
-    <div className="h-screen flex items-center justify-center bg-gray-100">
-      {isAuthenticated ? <h1>Welcome to the Dashboard!</h1> : <h1>Login!</h1>}
-  </div>
+    <>
+      {isAuthenticated ? <h1>Welcome to the Dashboard!</h1> : <Suspense><LoginPage/></Suspense> }
+    </>
   )
 }
 

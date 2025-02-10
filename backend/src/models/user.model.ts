@@ -9,6 +9,15 @@ interface IUserMethods {
   createPasswordResetToken(): string;
 }
 
+export interface Experience {
+  title: string;
+  company: string;
+  startDate: Date;
+  endDate?: Date; 
+  description?: string;
+  skills: Types.ObjectId[]; 
+}
+
 // Interface for User document
 export interface IUser extends Document<Types.ObjectId> {
   name: string;
@@ -18,6 +27,7 @@ export interface IUser extends Document<Types.ObjectId> {
   password: string;
   passwordChangedAt?: Date;
   bio?: string;
+  experience: Experience[];
   active: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -78,6 +88,15 @@ const userSchema = new Schema<IUser, IUserModel, IUserMethods>(
       type: String,
       default: "", // Bio is optional, default to an empty string
     },
+    experience: [
+    {
+      title: { type: String, required: true },
+      company: { type: String, required: true },
+      startDate: Date,
+      endDate: Date,
+      description: String,
+      skills: [{ type: Types.ObjectId, ref: "Skill" }],
+    }],
     passwordChangedAt: Date,
     createdAt: {
       type: Date,

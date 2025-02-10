@@ -9,8 +9,8 @@ This project is intended for practices and studies.
 - [x]  Implement refresh tokens for session persistence
 - [x]  Middleware to protect routes (auth middleware)
 ### User Profile Features
-- [ ]  Create User Profile Model (Name, Bio, Experience, Profile Picture)
-- [ ]  Implement Profile Update API
+- [x]  Create User Profile Model (Name, Bio, Experience, Profile Picture). Further feature, get the most skill.
+- [x]  Implement Profile Update API
 - [ ]  Store profile images using Cloudinary/Firebase Storage
 ### Follow/Unfollow System
 - [ ]  Implement Follow/Unfollow API Track followers and following users in the database

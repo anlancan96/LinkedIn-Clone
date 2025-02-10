@@ -15,7 +15,7 @@ export default class SkillService {
         return await Skill.deleteOne({ _id: skillId });
     }
 
-    public static async preCalculatePopularity(skill: ISkill, inc: number): Promise<any> {
+    public static async preCalculatePopularity(skill: string, inc: number): Promise<any> {
         return await Skill.preCalculatePopularity(skill, inc);
     }
  }

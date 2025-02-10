@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { User } from '../../../../shared/src/users';
+import { IUserResponse } from '../../../../shared/src/users';
 
 interface AuthState {
-    user: User | null;
+    user: IUserResponse | null;
     isAuthenticated: boolean;
 }
 // Initial authentication state
@@ -16,9 +16,9 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<User | null>) => {
+    setUser: (state, action: PayloadAction<IUserResponse | null>) => {
       state.user = action.payload;
-      state.isAuthenticated = true;
+      state.isAuthenticated = state.user ? true: false;
     },
     logout: (state) => {
       state.user = null;
